@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Tentukan base direktori (penting jika app berada di subdirektori)
+    # Untuk domain virtual keuangan-app.test, RewriteBase / sudah cukup.
+    # Jika akses via localhost/keuangan-app/, ubah ke: RewriteBase /keuangan-app/
+    RewriteBase /
+
+    # Jangan rewrite permintaan ke file atau direktori yang benar-benar ada
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Arahkan semua request ke index.php (tanpa meneruskan index.php di URL)
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
+# Jika mod_rewrite tidak tersedia, tampilkan pesan error yang informatif
+<IfModule !mod_rewrite.c>
+    # Jika tidak ada mod_rewrite, pengguna harus mengaktifkan mod_rewrite di Apache
+    ErrorDocument 404 "Apache mod_rewrite tidak aktif. Aktifkan di httpd.conf atau .htaccess"
+</IfModule>
+
+# Keamanan tambahan: blokir akses langsung ke file sensitif
+<FilesMatch "\.(env|log|sh|sql|bak|conf|ini)$">
+    Require all denied
+</FilesMatch>
+
+# Nonaktifkan directory listing
+Options -Indexes

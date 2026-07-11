@@ -1,0 +1,19 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/*
+|--------------------------------------------------------------------------
+| OCR.space API Configuration — EXAMPLE FILE
+|--------------------------------------------------------------------------
+| Salin file ini menjadi: application/config/ocr.php
+| Lalu isi dengan API Key asli Anda.
+|
+| Daftar gratis di: https://ocr.space/ocrapi/freekey
+| (25.000 request/bulan, maks 1MB per file untuk free tier)
+|
+| Untuk akun PRO (limit lebih besar, file > 1MB):
+|   https://ocr.space/pricing
+|
+*/
+$config['ocrspace_api_key']  = 'K85799247388957';
+$config['ocrspace_endpoint'] = 'https://api.ocr.space/parse/image';
