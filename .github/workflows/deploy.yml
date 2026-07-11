@@ -22,9 +22,11 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        # Path folder htdocs sesuai Home Directory InfinityFree
+        # Full absolute path sesuai Home Directory InfinityFree
         server-dir: /htdocs/
-        # Exclude development files
+        # Pakai port FTP standar
+        port: 21
+        # Exclude file yang tidak perlu di server
         exclude: |
           **/.git*
           **/.git*/**
@@ -32,3 +34,5 @@ jobs:
           **/vendor/**
           **/tests/**
           **/*.md
+          **/*.sql
+          **/database/**
