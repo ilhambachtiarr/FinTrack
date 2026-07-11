@@ -22,7 +22,7 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        # Default dir in InfinityFree is usually htdocs
+        # Path folder htdocs sesuai Home Directory InfinityFree
         server-dir: /htdocs/
         # Exclude development files
         exclude: |
