@@ -60,7 +60,6 @@ Catat pemasukan & pengeluaran, atur anggaran, dan capai tujuan keuangan Anda den
 
 ## 📸 Screenshot
 
-> _Tambahkan screenshot aplikasi Anda di sini_
 
 | Dashboard | Transaksi | Kategori |
 |:---------:|:---------:|:--------:|
