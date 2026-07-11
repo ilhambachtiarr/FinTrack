@@ -33,8 +33,11 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 # Konfigurasi sensitif — JANGAN commit ke git
 application/config/ocr.php
+application/config/email.php
 
 # Folder upload struk
 /uploads/struk/
-  
-application/config/email.php 
+
+# SQL Dump — JANGAN commit, mengandung data pribadi!
+*.sql
+/database/
