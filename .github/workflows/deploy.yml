@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - master # Triggers on push to main or master branch
+      - master
 
 jobs:
   web-deploy:
@@ -22,11 +22,10 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        # Full absolute path sesuai Home Directory InfinityFree
-        server-dir: /htdocs/
-        # Pakai port FTP standar
         port: 21
-        # Exclude file yang tidak perlu di server
+        server-dir: /htdocs/
+        # Hanya upload file yang berubah, JANGAN hapus file lain di server
+        dangerous-clean-slate: false
         exclude: |
           **/.git*
           **/.git*/**
@@ -36,3 +35,10 @@ jobs:
           **/*.md
           **/*.sql
           **/database/**
+          # Jangan sentuh folder uploads (foto profil, struk, dsb)
+          **/uploads/**
+          # Jangan timpa config sensitif production
+          **/application/config/email.php
+          **/application/config/ocr.php
+          **/application/logs/**
+          **/application/cache/**
