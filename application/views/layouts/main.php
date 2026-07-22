@@ -127,7 +127,7 @@
                 <li>
                     <a href="<?= site_url('laporan') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'laporan') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
                         <i class="fa-solid fa-chart-pie w-6"></i>
-                        <span>Laporan PDF</span>
+                        <span>Laporan Keuangan</span>
                     </a>
                 </li>
             </ul>

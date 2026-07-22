@@ -95,8 +95,11 @@ class Laporan extends MY_Controller {
         
         $output = fopen("php://output", "w");
         
-        // Header Kolom
-        fputcsv($output, ['Tanggal', 'Akun', 'Kategori', 'Tipe', 'Nama Merchant', 'Jumlah', 'Catatan']);
+        // Tambahkan BOM (Byte Order Mark) agar Excel mendeteksi encoding UTF-8 dengan benar
+        fputs($output, "\xEF\xBB\xBF");
+        
+        // Header Kolom (Gunakan delimiter titik koma ';' agar rapi di Excel bahasa Indonesia)
+        fputcsv($output, ['Tanggal', 'Akun', 'Kategori', 'Tipe', 'Nama Merchant', 'Jumlah', 'Catatan'], ';');
         
         // Data Transaksi
         foreach ($data['detail_transaksi'] as $row) {
@@ -106,9 +109,9 @@ class Laporan extends MY_Controller {
                 $row['nama_kategori'] ?: 'Tanpa Kategori',
                 ucfirst($row['tipe']),
                 $row['nama_merchant'],
-                $row['jumlah'],
+                intval($row['jumlah']), // Hilangkan .00 agar lebih rapi di Excel
                 $row['catatan']
-            ]);
+            ], ';');
         }
         
         fclose($output);
