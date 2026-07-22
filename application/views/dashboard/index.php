@@ -133,6 +133,46 @@
     </div>
 </div>
 
+<!-- Status Anggaran Kategori Widget -->
+<?php if (!empty($budget_summary['items'])): ?>
+<div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
+    <div class="flex justify-between items-center mb-4">
+        <div>
+            <h3 class="text-base font-semibold">Status Anggaran Kategori</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Pemantauan limit pengeluaran bulanan Anda</p>
+        </div>
+        <a href="<?= site_url('anggaran') ?>" class="text-xs font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400 flex items-center gap-1">
+            Kelola Anggaran <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <?php foreach (array_slice($budget_summary['items'], 0, 3) as $item): ?>
+            <div class="p-3.5 rounded-lg border border-gray-100 dark:border-gray-700/80 bg-gray-50/50 dark:bg-gray-700/30">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded flex items-center justify-center text-white text-xs font-bold" style="background-color: <?= $item['kode_warna'] ?: '#3B82F6' ?>;">
+                            <i class="<?= $item['ikon'] ?: 'fa-solid fa-tag' ?>"></i>
+                        </div>
+                        <span class="text-xs font-bold truncate max-w-[120px]"><?= htmlspecialchars($item['nama_kategori']) ?></span>
+                    </div>
+                    <span class="text-xs font-semibold <?= $item['text_color'] ?>"><?= min(100, $item['persentase']) ?>%</span>
+                </div>
+
+                <div class="w-full bg-gray-200 dark:bg-gray-600 h-2 rounded-full overflow-hidden mb-2">
+                    <div class="h-full <?= $item['progress_color'] ?>" style="width: <?= min(100, $item['persentase']) ?>%;"></div>
+                </div>
+
+                <div class="flex justify-between text-[11px] text-gray-500 dark:text-gray-400">
+                    <span>Terpakai: <?= format_rupiah($item['terpakai']) ?></span>
+                    <span>Limit: <?= format_rupiah($item['nominal_batas']) ?></span>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- Transaksi Terbaru -->
 <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
     <div class="flex justify-between items-center mb-4">

@@ -113,6 +113,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?= site_url('anggaran') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'anggaran') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
+                        <i class="fa-solid fa-sliders w-6"></i>
+                        <span>Anggaran</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?= site_url('goal') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'goal') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
                         <i class="fa-solid fa-bullseye w-6"></i>
                         <span>Tujuan Keuangan</span>

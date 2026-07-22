@@ -16,6 +16,7 @@ class Dashboard extends MY_Controller {
     {
         parent::__construct();
         $this->load->model('Dashboard_model');
+        $this->load->model('Anggaran_model');
     }
 
     public function index()
@@ -34,6 +35,9 @@ class Dashboard extends MY_Controller {
         // 5 transaksi terbaru
         $transaksi_terbaru = $this->Dashboard_model->get_transaksi_terbaru($user_id, 5);
 
+        // Ringkasan Anggaran Kategori
+        $budget_summary = $this->Anggaran_model->get_dashboard_summary($user_id);
+
         // Kalkulasi Financial Health Insight
         $health_insight = $this->_calculate_health_insight($total_saldo, $pemasukan_bulan, $pengeluaran_bulan, $user_id);
 
@@ -45,8 +49,10 @@ class Dashboard extends MY_Controller {
             'chart_30_hari'     => json_encode($chart_30_hari),
             'chart_kategori'    => json_encode($chart_kategori),
             'transaksi_terbaru' => $transaksi_terbaru,
-            'health_insight'    => $health_insight
+            'health_insight'    => $health_insight,
+            'budget_summary'    => $budget_summary
         ];
+
 
         // Load view menggunakan layout
         // Parameter true pada view inner (dashboard/index) berarti view tsb
