@@ -174,4 +174,49 @@ class Dashboard_model extends CI_Model {
 
         return $this->db->get()->result_array();
     }
+
+    /**
+     * Hitung rata-rata pengeluaran per bulan selama 3 bulan terakhir (90 hari).
+     */
+    public function get_rata_rata_pengeluaran_3_bulan($user_id)
+    {
+        $start_date = date('Y-m-d', strtotime('-90 days'));
+        
+        $this->db->select_sum('jumlah');
+        $this->db->where('user_id', (int) $user_id);
+        $this->db->where('tipe', 'pengeluaran');
+        $this->db->where('tanggal_transaksi >=', $start_date);
+        $this->db->where('deleted_at IS NULL');
+        $result = $this->db->get('transaksi')->row();
+
+        $total_90_hari = $result->jumlah ?? 0.00;
+        
+        // Rata-rata per bulan (3 bulan)
+        return $total_90_hari / 3.0;
+    }
+
+    /**
+     * Ambil kategori dengan pengeluaran terbanyak bulan ini.
+     */
+    public function get_kategori_pengeluaran_terbesar_bulan_ini($user_id)
+    {
+        $first_day = date('Y-m-01');
+        $last_day  = date('Y-m-t');
+
+        $this->db->select('kategori.nama_kategori, SUM(transaksi.jumlah) as total');
+        $this->db->from('transaksi');
+        $this->db->join('kategori', 'transaksi.kategori_id = kategori.id', 'left');
+        $this->db->where('transaksi.user_id', (int) $user_id);
+        $this->db->where('transaksi.tipe', 'pengeluaran');
+        $this->db->where('transaksi.tanggal_transaksi >=', $first_day);
+        $this->db->where('transaksi.tanggal_transaksi <=', $last_day);
+        $this->db->where('transaksi.deleted_at IS NULL');
+        $this->db->group_by('transaksi.kategori_id');
+        $this->db->order_by('total', 'DESC');
+        $this->db->limit(1);
+
+        $row = $this->db->get()->row_array();
+        return $row ?: null;
+    }
 }
+
