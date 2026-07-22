@@ -47,6 +47,19 @@
             </select>
         </div>
         <div>
+            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Kategori</label>
+            <select name="kategori_id" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                <option value="">Semua Kategori</option>
+                    <?php if (!empty($kategori_list)): ?>
+                        <?php foreach ($kategori_list as $kat): ?>
+                            <option value="<?= $kat['id'] ?>" <?= (isset($filters['kategori_id']) && $filters['kategori_id'] == $kat['id']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($kat['nama_kategori']) ?> (<?= ucfirst($kat['tipe']) ?>)
+                </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+            </select>
+        </div>
+        <div>
             <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Tampilkan Dihapus?</label>
             <select name="show_deleted" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
                 <option value="0" <?= !$filters['show_deleted'] ? 'selected' : '' ?>>Tidak</option>

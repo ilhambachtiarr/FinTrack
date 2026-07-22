@@ -34,6 +34,7 @@ class Transaction extends MY_Controller {
         $tahun   = $this->input->get('tahun', TRUE) ?: date('Y');
         $tipe    = $this->input->get('tipe', TRUE);
         $akun_id = $this->input->get('akun_id', TRUE);
+        $kategori_id = $this->input->get('kategori_id', TRUE);
         $show_deleted = $this->input->get('show_deleted', TRUE) == '1';
 
         $filters = [
@@ -41,6 +42,7 @@ class Transaction extends MY_Controller {
             'tahun'   => $tahun,
             'tipe'    => $tipe,
             'akun_id' => $akun_id,
+            'kategori_id' => $kategori_id,
             'show_deleted' => $show_deleted
         ];
 

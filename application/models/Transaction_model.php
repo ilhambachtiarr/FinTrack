@@ -51,10 +51,8 @@ class Transaction_model extends CI_Model {
         if (!empty($filters['tipe'])) {
             $this->db->where('transaksi.tipe', $filters['tipe']);
         }
-        if (!empty($filters['kategori'])) {
-            $this->db->where('kategori.nama_kategori', $filters['kategori']);
-            // Atau jika ingin pencarian yang fleksibel (mirip search):
-            // $this->db->like('kategori.nama_kategori', $filters['kategori']);
+        if (!empty($filters['kategori_id'])) {
+            $this->db->where('transaksi.kategori_id', $filters['kategori_id']);
         }
         if (!empty($filters['akun_id'])) {
             // Bisa sebagai sumber atau target (jika transfer)
@@ -90,9 +88,8 @@ class Transaction_model extends CI_Model {
         if (!empty($filters['tipe'])) {
             $this->db->where('tipe', $filters['tipe']);
         }
-        if (!empty($filters['kategori'])) {
-            $this->db->join('kategori', 'transaksi.kategori_id = kategori.id', 'left');
-            $this->db->where('kategori.nama_kategori', $filters['kategori']);
+        if (!empty($filters['kategori_id'])) {
+            $this->db->where('kategori_id', $filters['kategori_id']);
         }
         if (!empty($filters['akun_id'])) {
             $this->db->group_start();
