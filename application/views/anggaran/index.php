@@ -133,7 +133,7 @@
             </button>
         </div>
 
-        <form action="<?= site_url('anggaran/store') ?>" method="POST">
+        <?= form_open('anggaran/store') ?>
             <div class="mb-4">
                 <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Pilih Kategori Pengeluaran</label>
                 <select name="kategori_id" id="modal_kategori_id" required class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
@@ -161,7 +161,7 @@
                     Simpan Anggaran
                 </button>
             </div>
-        </form>
+        <?= form_close() ?>
     </div>
 </div>
 
