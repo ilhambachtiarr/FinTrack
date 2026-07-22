@@ -43,11 +43,27 @@ class Transaction_model extends CI_Model {
             $this->db->where('transaksi.deleted_at IS NULL');
         }
 
-        // Filters
-        if (!empty($filters['bulan']) && !empty($filters['tahun'])) {
+        // Filters (Rentang tanggal kustom atau Bulan/Tahun)
+        if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+            $this->db->where('transaksi.tanggal_transaksi >=', $filters['start_date']);
+            $this->db->where('transaksi.tanggal_transaksi <=', $filters['end_date']);
+        } elseif (!empty($filters['start_date'])) {
+            $this->db->where('transaksi.tanggal_transaksi >=', $filters['start_date']);
+        } elseif (!empty($filters['end_date'])) {
+            $this->db->where('transaksi.tanggal_transaksi <=', $filters['end_date']);
+        } elseif (!empty($filters['bulan']) && !empty($filters['tahun'])) {
             $this->db->where('MONTH(transaksi.tanggal_transaksi)', $filters['bulan']);
             $this->db->where('YEAR(transaksi.tanggal_transaksi)', $filters['tahun']);
         }
+
+        // Filter Search Bar (Pencarian Teks Catatan / Merchant)
+        if (!empty($filters['search'])) {
+            $this->db->group_start();
+            $this->db->like('transaksi.catatan', $filters['search']);
+            $this->db->or_like('transaksi.nama_merchant', $filters['search']);
+            $this->db->group_end();
+        }
+
         if (!empty($filters['tipe'])) {
             $this->db->where('transaksi.tipe', $filters['tipe']);
         }
@@ -81,13 +97,29 @@ class Transaction_model extends CI_Model {
             $this->db->where('deleted_at IS NULL');
         }
 
-        if (!empty($filters['bulan']) && !empty($filters['tahun'])) {
+        if (!empty($filters['start_date']) && !empty($filters['end_date'])) {
+            $this->db->where('tanggal_transaksi >=', $filters['start_date']);
+            $this->db->where('tanggal_transaksi <=', $filters['end_date']);
+        } elseif (!empty($filters['start_date'])) {
+            $this->db->where('tanggal_transaksi >=', $filters['start_date']);
+        } elseif (!empty($filters['end_date'])) {
+            $this->db->where('tanggal_transaksi <=', $filters['end_date']);
+        } elseif (!empty($filters['bulan']) && !empty($filters['tahun'])) {
             $this->db->where('MONTH(tanggal_transaksi)', $filters['bulan']);
             $this->db->where('YEAR(tanggal_transaksi)', $filters['tahun']);
         }
+
+        if (!empty($filters['search'])) {
+            $this->db->group_start();
+            $this->db->like('catatan', $filters['search']);
+            $this->db->or_like('nama_merchant', $filters['search']);
+            $this->db->group_end();
+        }
+
         if (!empty($filters['tipe'])) {
             $this->db->where('tipe', $filters['tipe']);
         }
+
         if (!empty($filters['kategori_id'])) {
             $this->db->where('kategori_id', $filters['kategori_id']);
         }

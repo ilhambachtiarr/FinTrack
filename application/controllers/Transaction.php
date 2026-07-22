@@ -30,21 +30,31 @@ class Transaction extends MY_Controller {
         $user_id = $this->current_user_id;
 
         // Tangkap parameter filter (GET)
-        $bulan   = $this->input->get('bulan', TRUE) ?: date('m');
-        $tahun   = $this->input->get('tahun', TRUE) ?: date('Y');
-        $tipe    = $this->input->get('tipe', TRUE);
-        $akun_id = $this->input->get('akun_id', TRUE);
+        $start_date  = $this->input->get('start_date', TRUE);
+        $end_date    = $this->input->get('end_date', TRUE);
+        $search      = $this->input->get('search', TRUE);
+        
+        // Jika tidak ada start_date & end_date, gunakan default bulan & tahun sekarang
+        $bulan       = ($start_date || $end_date) ? $this->input->get('bulan', TRUE) : ($this->input->get('bulan', TRUE) ?: date('m'));
+        $tahun       = ($start_date || $end_date) ? $this->input->get('tahun', TRUE) : ($this->input->get('tahun', TRUE) ?: date('Y'));
+        
+        $tipe        = $this->input->get('tipe', TRUE);
+        $akun_id     = $this->input->get('akun_id', TRUE);
         $kategori_id = $this->input->get('kategori_id', TRUE);
         $show_deleted = $this->input->get('show_deleted', TRUE) == '1';
 
         $filters = [
-            'bulan'   => $bulan,
-            'tahun'   => $tahun,
-            'tipe'    => $tipe,
-            'akun_id' => $akun_id,
+            'search'      => $search,
+            'start_date'  => $start_date,
+            'end_date'    => $end_date,
+            'bulan'       => $bulan,
+            'tahun'       => $tahun,
+            'tipe'        => $tipe,
+            'akun_id'     => $akun_id,
             'kategori_id' => $kategori_id,
-            'show_deleted' => $show_deleted
+            'show_deleted'=> $show_deleted
         ];
+
 
         // Konfigurasi Pagination
         $config['base_url']   = site_url('transaction/index');

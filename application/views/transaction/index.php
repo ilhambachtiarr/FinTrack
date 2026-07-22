@@ -18,61 +18,90 @@
 
 <!-- Filters -->
 <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
-    <form method="GET" action="<?= site_url('transaction') ?>" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
-        <div>
-            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Bulan</label>
-            <select name="bulan" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
-                <?php for($m=1; $m<=12; $m++): ?>
-                    <option value="<?= str_pad($m, 2, '0', STR_PAD_LEFT) ?>" <?= $filters['bulan'] == $m ? 'selected' : '' ?>>
-                        <?= date('F', mktime(0, 0, 0, $m, 10)) ?>
-                    </option>
-                <?php endfor; ?>
-            </select>
+    <form method="GET" action="<?= site_url('transaction') ?>" class="space-y-4">
+        <!-- Row 1: Search Bar & Custom Date Range -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div class="md:col-span-1">
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Cari Transaksi</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </div>
+                    <input type="text" name="search" value="<?= htmlspecialchars($filters['search'] ?? '') ?>" placeholder="Cari catatan atau merchant..." class="pl-9 block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Dari Tanggal</label>
+                <input type="date" name="start_date" value="<?= htmlspecialchars($filters['start_date'] ?? '') ?>" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Sampai Tanggal</label>
+                <input type="date" name="end_date" value="<?= htmlspecialchars($filters['end_date'] ?? '') ?>" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+            </div>
         </div>
-        <div>
-            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Tahun</label>
-            <select name="tahun" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
-                <?php $current_year = date('Y'); for($y = $current_year; $y >= $current_year-5; $y--): ?>
-                    <option value="<?= $y ?>" <?= $filters['tahun'] == $y ? 'selected' : '' ?>><?= $y ?></option>
-                <?php endfor; ?>
-            </select>
-        </div>
-        <div>
-            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Tipe</label>
-            <select name="tipe" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
-                <option value="">Semua Tipe</option>
-                <option value="pemasukan" <?= $filters['tipe'] == 'pemasukan' ? 'selected' : '' ?>>Pemasukan</option>
-                <option value="pengeluaran" <?= $filters['tipe'] == 'pengeluaran' ? 'selected' : '' ?>>Pengeluaran</option>
-                <option value="transfer" <?= $filters['tipe'] == 'transfer' ? 'selected' : '' ?>>Transfer</option>
-            </select>
-        </div>
-        <div>
-            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Kategori</label>
-            <select name="kategori_id" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
-                <option value="">Semua Kategori</option>
+
+        <!-- Row 2: Dropdowns Filter -->
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 items-end pt-3 border-t border-gray-100 dark:border-gray-700/60">
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Bulan</label>
+                <select name="bulan" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    <option value="">Semua Bulan</option>
+                    <?php for($m=1; $m<=12; $m++): ?>
+                        <option value="<?= str_pad($m, 2, '0', STR_PAD_LEFT) ?>" <?= (!empty($filters['bulan']) && $filters['bulan'] == $m) ? 'selected' : '' ?>>
+                            <?= date('F', mktime(0, 0, 0, $m, 10)) ?>
+                        </option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Tahun</label>
+                <select name="tahun" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    <?php $current_year = date('Y'); for($y = $current_year; $y >= $current_year-5; $y--): ?>
+                        <option value="<?= $y ?>" <?= (!empty($filters['tahun']) && $filters['tahun'] == $y) ? 'selected' : '' ?>><?= $y ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Tipe</label>
+                <select name="tipe" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    <option value="">Semua Tipe</option>
+                    <option value="pemasukan" <?= $filters['tipe'] == 'pemasukan' ? 'selected' : '' ?>>Pemasukan</option>
+                    <option value="pengeluaran" <?= $filters['tipe'] == 'pengeluaran' ? 'selected' : '' ?>>Pengeluaran</option>
+                    <option value="transfer" <?= $filters['tipe'] == 'transfer' ? 'selected' : '' ?>>Transfer</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Kategori</label>
+                <select name="kategori_id" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    <option value="">Semua Kategori</option>
                     <?php if (!empty($kategori_list)): ?>
                         <?php foreach ($kategori_list as $kat): ?>
                             <option value="<?= $kat['id'] ?>" <?= (isset($filters['kategori_id']) && $filters['kategori_id'] == $kat['id']) ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($kat['nama_kategori']) ?> (<?= ucfirst($kat['tipe']) ?>)
-                </option>
+                                <?= htmlspecialchars($kat['nama_kategori']) ?>
+                            </option>
                         <?php endforeach; ?>
                     <?php endif; ?>
-            </select>
-        </div>
-        <div>
-            <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Tampilkan Dihapus?</label>
-            <select name="show_deleted" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
-                <option value="0" <?= !$filters['show_deleted'] ? 'selected' : '' ?>>Tidak</option>
-                <option value="1" <?= $filters['show_deleted'] ? 'selected' : '' ?>>Ya</option>
-            </select>
-        </div>
-        <div>
-            <button type="submit" class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none transition-colors">
-                <i class="fa-solid fa-filter mr-2"></i> Filter
-            </button>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Dihapus?</label>
+                <select name="show_deleted" class="block w-full border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    <option value="0" <?= !$filters['show_deleted'] ? 'selected' : '' ?>>Tidak</option>
+                    <option value="1" <?= $filters['show_deleted'] ? 'selected' : '' ?>>Ya</option>
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="flex-1 inline-flex justify-center items-center px-3 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none transition-colors">
+                    <i class="fa-solid fa-filter mr-1.5"></i> Filter
+                </button>
+                <a href="<?= site_url('transaction') ?>" class="inline-flex justify-center items-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none transition-colors" title="Reset Filter">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </a>
+            </div>
         </div>
     </form>
 </div>
+
 
 <!-- Data Table -->
 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mb-6">
