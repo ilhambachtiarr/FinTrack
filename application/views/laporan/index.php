@@ -49,11 +49,19 @@
             </button>
         </form>
         
-        <!-- Tombol Download PDF (Tap Target Besar) -->
-        <a href="<?= site_url("laporan/download_pdf?" . http_build_query($this->input->get())) ?>" target="_blank"
-           class="inline-flex justify-center items-center h-11 px-5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-medium rounded-lg shadow-sm transition-all hover:shadow text-sm">
-            <i class="fa-solid fa-file-pdf text-lg mr-2"></i> Unduh Laporan PDF
-        </a>
+        <!-- Tombol Download (PDF & CSV) -->
+        <div class="flex items-center gap-2">
+            <a href="<?= site_url("laporan/download_csv?" . http_build_query($this->input->get())) ?>"
+               class="inline-flex justify-center items-center h-11 px-5 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-medium rounded-lg shadow-sm transition-all hover:shadow text-sm"
+               title="Ekspor Data Transaksi (Bisa dibuka di Excel)">
+                <i class="fa-solid fa-file-csv text-lg mr-2"></i> Ekspor CSV
+            </a>
+            
+            <a href="<?= site_url("laporan/download_pdf?" . http_build_query($this->input->get())) ?>" target="_blank"
+               class="inline-flex justify-center items-center h-11 px-5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-medium rounded-lg shadow-sm transition-all hover:shadow text-sm">
+                <i class="fa-solid fa-file-pdf text-lg mr-2"></i> Unduh PDF
+            </a>
+        </div>
     </div>
 </div>
 

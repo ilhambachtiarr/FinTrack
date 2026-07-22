@@ -80,4 +80,38 @@ class Laporan extends MY_Controller {
         // Render PDF (inline)
         $this->pdf->generate($html, $filename);
     }
+
+    /**
+     * Download CSV laporan
+     */
+    public function download_csv()
+    {
+        $data = $this->_get_laporan_data();
+        $filename = "Laporan-Keuangan-" . str_replace(' ', '-', $data['judul_rentang']) . ".csv";
+
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv; "); 
+        
+        $output = fopen("php://output", "w");
+        
+        // Header Kolom
+        fputcsv($output, ['Tanggal', 'Akun', 'Kategori', 'Tipe', 'Nama Merchant', 'Jumlah', 'Catatan']);
+        
+        // Data Transaksi
+        foreach ($data['detail_transaksi'] as $row) {
+            fputcsv($output, [
+                $row['tanggal_transaksi'],
+                $row['nama_akun'],
+                $row['nama_kategori'] ?: 'Tanpa Kategori',
+                ucfirst($row['tipe']),
+                $row['nama_merchant'],
+                $row['jumlah'],
+                $row['catatan']
+            ]);
+        }
+        
+        fclose($output);
+        exit;
+    }
 }
