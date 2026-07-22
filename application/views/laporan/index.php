@@ -1,14 +1,14 @@
 <!-- Header & Filters -->
-<div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+<div class="mb-8 glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50">
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Laporan Keuangan</h1>
+            <h1 class="text-3xl font-extrabold tracking-tight text-gradient">Laporan Keuangan</h1>
             <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
                 Laporan Arus Kas <?= htmlspecialchars($judul_rentang) ?>
             </p>
         </div>
 
-        <form method="GET" action="<?= site_url('laporan') ?>" class="flex flex-col sm:flex-row gap-3 bg-gray-50 dark:bg-gray-700 p-2 rounded-lg">
+        <form method="GET" action="<?= site_url('laporan') ?>" class="flex flex-col sm:flex-row gap-3 bg-gray-100/70 dark:bg-slate-800/60 p-2 rounded-xl backdrop-blur-sm">
             
             <!-- Mode Toggle -->
             <div class="flex bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-600 p-1">
@@ -66,41 +66,44 @@
 </div>
 
 <!-- 3 Kartu Summary -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 lg:col-span-2 group relative overflow-hidden">
+        <div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-emerald-500/10 blur-2xl"></div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
-                <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Total Pemasukan</p>
-                <p class="text-2xl font-bold text-green-600 dark:text-green-400"><?= format_rupiah($summary['total_pemasukan']) ?></p>
+                <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Total Pemasukan</p>
+                <p class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400"><?= format_rupiah($summary['total_pemasukan']) ?></p>
             </div>
-            <div class="w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 flex items-center justify-center text-xl">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/40 dark:to-emerald-800/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg shadow-sm">
                 <i class="fa-solid fa-arrow-turn-down"></i>
             </div>
         </div>
     </div>
     
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
+        <div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-rose-500/10 blur-2xl"></div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
-                <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Total Pengeluaran</p>
-                <p class="text-2xl font-bold text-red-600 dark:text-red-400"><?= format_rupiah($summary['total_pengeluaran']) ?></p>
+                <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Total Pengeluaran</p>
+                <p class="text-2xl font-extrabold text-rose-600 dark:text-rose-400"><?= format_rupiah($summary['total_pengeluaran']) ?></p>
             </div>
-            <div class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 flex items-center justify-center text-xl">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-100 to-rose-200 dark:from-rose-900/40 dark:to-rose-800/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg shadow-sm">
                 <i class="fa-solid fa-arrow-turn-up"></i>
             </div>
         </div>
     </div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+        <?php $is_plus = $summary['arus_kas_bersih'] >= 0; ?>
+        <div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full <?= $is_plus ? 'bg-primary-500/10' : 'bg-gray-400/10' ?> blur-2xl"></div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
-                <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Arus Kas Bersih</p>
-                <?php $is_plus = $summary['arus_kas_bersih'] >= 0; ?>
-                <p class="text-2xl font-bold <?= $is_plus ? 'text-primary-600 dark:text-primary-400' : 'text-gray-900 dark:text-white' ?>">
+                <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Arus Kas Bersih</p>
+                <p class="text-2xl font-extrabold <?= $is_plus ? 'text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300' ?>">
                     <?= $is_plus ? '+' : '' ?><?= format_rupiah($summary['arus_kas_bersih']) ?>
                 </p>
             </div>
-            <div class="w-10 h-10 rounded-full <?= $is_plus ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600' : 'bg-gray-100 dark:bg-gray-700 text-gray-600' ?> flex items-center justify-center text-xl">
+            <div class="w-11 h-11 rounded-xl <?= $is_plus ? 'bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/40 dark:to-primary-800/40 text-primary-600 dark:text-primary-400' : 'bg-gray-100 dark:bg-slate-800 text-gray-500' ?> flex items-center justify-center text-lg shadow-sm">
                 <i class="fa-solid fa-scale-balanced"></i>
             </div>
         </div>

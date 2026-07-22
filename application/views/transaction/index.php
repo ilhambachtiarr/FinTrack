@@ -1,14 +1,14 @@
 <!-- Header & Flash Messages -->
-<div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
     <div>
-        <h1 class="text-2xl font-bold tracking-tight">Riwayat Transaksi</h1>
-        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Kelola pemasukan, pengeluaran, dan transfer Anda.</p>
+        <h1 class="text-3xl font-extrabold tracking-tight text-gradient">Riwayat Transaksi</h1>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Kelola pemasukan, pengeluaran, dan transfer Anda secara real-time.</p>
     </div>
-    <div class="flex items-center gap-2">
-        <button onclick="openScanStrukModal()" class="inline-flex items-center justify-center px-4 py-2 border border-primary-300 dark:border-primary-700 rounded-lg shadow-sm text-sm font-medium text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-900/40 focus:outline-none transition-colors">
+    <div class="flex items-center gap-3">
+        <button onclick="openScanStrukModal()" class="inline-flex items-center justify-center px-4 py-2 border border-primary-300 dark:border-primary-700 rounded-xl shadow-sm text-sm font-medium text-primary-700 dark:text-primary-300 bg-white/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 focus:outline-none transition-all hover:shadow-md hover:-translate-y-0.5 backdrop-blur-sm">
             <i class="fa-solid fa-camera mr-2"></i> Scan Struk
         </button>
-        <button onclick="openModal('create-modal')" class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none transition-colors">
+        <button onclick="openModal('create-modal')" class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent rounded-xl shadow-lg shadow-primary-500/30 text-sm font-medium text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 focus:outline-none transition-all hover:shadow-xl hover:-translate-y-0.5">
             <i class="fa-solid fa-plus mr-2"></i> Tambah Transaksi
         </button>
     </div>
@@ -17,7 +17,8 @@
 
 
 <!-- Filters -->
-<div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
+<div class="glass p-5 rounded-2xl shadow-xl border border-white/50 dark:border-slate-700/50 mb-8 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-1 bg-gradient-to-b from-primary-400 to-primary-600 h-full"></div>
     <form method="GET" action="<?= site_url('transaction') ?>" class="space-y-4">
         <!-- Row 1: Search Bar & Custom Date Range -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
@@ -104,15 +105,15 @@
 
 
 <!-- Data Table -->
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mb-6">
+<div class="glass rounded-2xl shadow-xl border border-white/50 dark:border-slate-700/50 overflow-hidden mb-8">
     <div class="overflow-x-auto">
         <table class="w-full text-sm text-left">
-            <thead class="text-xs text-gray-500 uppercase bg-gray-50 dark:bg-gray-700/50 dark:text-gray-400">
+            <thead class="text-xs text-gray-500 uppercase bg-primary-50/50 dark:bg-slate-800/80 dark:text-gray-400 border-b border-primary-100/50 dark:border-slate-700/50 backdrop-blur-sm">
                 <tr>
-                    <th scope="col" class="px-6 py-4">Tanggal & Catatan</th>
-                    <th scope="col" class="px-6 py-4">Akun & Kategori</th>
-                    <th scope="col" class="px-6 py-4 text-right">Jumlah</th>
-                    <th scope="col" class="px-6 py-4 text-center">Aksi</th>
+                    <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Tanggal & Catatan</th>
+                    <th scope="col" class="px-6 py-4 font-semibold tracking-wider">Akun & Kategori</th>
+                    <th scope="col" class="px-6 py-4 font-semibold tracking-wider text-right">Jumlah</th>
+                    <th scope="col" class="px-6 py-4 font-semibold tracking-wider text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -121,9 +122,9 @@
                 <?php else: ?>
                     <?php foreach ($transaksi as $trx): 
                         $is_deleted = !is_null($trx['deleted_at']);
-                        $row_class = $is_deleted ? 'bg-red-50/50 dark:bg-red-900/10 opacity-75' : 'hover:bg-gray-50 dark:hover:bg-gray-700/50';
+                        $row_class = $is_deleted ? 'bg-red-50/50 dark:bg-red-900/10 opacity-75' : 'hover:bg-white/60 dark:hover:bg-slate-700/40 border-b border-gray-100/50 dark:border-slate-700/30';
                     ?>
-                        <tr class="<?= $row_class ?> transition-colors">
+                        <tr class="<?= $row_class ?> transition-all duration-200">
                             <td class="px-6 py-4">
                                 <div class="font-medium flex items-center flex-wrap gap-1">
                                     <?php if(isset($trx['sumber']) && $trx['sumber'] === 'struk'): ?>

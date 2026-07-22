@@ -33,8 +33,12 @@
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
                         primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
-                        }
+                            50: '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7', 
+                            400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857', 
+                            800: '#065f46', 900: '#064e3b',
+                        },
+                        darkbase: '#0f172a',
+                        darkcard: '#1e293b',
                     }
                 }
             }
@@ -49,8 +53,20 @@
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Smooth transition for theme toggle */
-        * { transition: background-color 0.2s ease, border-color 0.2s ease; }
+        * { transition: background-color 0.3s ease, border-color 0.3s ease; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* UI Utilities */
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        .dark .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .text-gradient { background: linear-gradient(135deg, #10b981, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
         /* Fix apexcharts dark mode tooltips */
         .apexcharts-tooltip { background: #fff; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         .dark .apexcharts-tooltip { background: #1f2937; border: 1px solid #374151; color: #f3f4f6; }
@@ -58,10 +74,10 @@
         .dark .apexcharts-text tspan { fill: #9ca3af; }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+<body class="bg-slate-50 dark:bg-darkbase text-gray-800 dark:text-gray-100 min-h-screen selection:bg-primary-500 selection:text-white">
 
     <!-- Mobile Header & Burger Menu -->
-    <div class="lg:hidden flex items-center justify-between p-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 fixed top-0 w-full z-20">
+    <div class="lg:hidden flex items-center justify-between p-4 glass fixed top-0 w-full z-20 border-b border-gray-200/50 dark:border-gray-800/50">
         <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded bg-primary-100 text-primary-600 flex items-center justify-center">
                 <i class="fa-solid fa-wallet"></i>
@@ -77,83 +93,97 @@
     <div id="sidebar-overlay" class="fixed inset-0 bg-gray-900/50 z-30 hidden lg:hidden"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
-        <div class="p-6 hidden lg:flex items-center gap-3 border-b border-gray-100 dark:border-gray-700">
-            <div class="w-10 h-10 rounded-lg bg-primary-100 text-primary-600 flex items-center justify-center text-xl">
+    <aside id="sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 glass border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div class="p-6 hidden lg:flex items-center gap-3 border-b border-gray-200/50 dark:border-gray-700/50">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 text-white flex items-center justify-center text-xl shadow-lg shadow-primary-500/30">
                 <i class="fa-solid fa-wallet"></i>
-                 <!-- <img src="/logo.png" alt="" style="weidth: 100%;"> -->
             </div>
-            <span class="font-bold text-xl tracking-tight">FinTrack</span>
+            <span class="font-extrabold text-2xl tracking-tight text-gradient">FinTrack</span>
         </div>
         
         <div class="p-4 flex-1 overflow-y-auto">
-            <ul class="space-y-2 font-medium">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-3 mb-3">Menu Utama</p>
+            <ul class="space-y-1 font-medium">
                 <li>
-                    <a href="<?= site_url('dashboard') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-house w-6"></i>
-                        <span>Dashboard</span>
+                    <a href="<?= site_url('dashboard') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-house text-sm"></i>
+                        </div>
+                        <span class="text-sm">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= site_url('akun') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'akun') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-credit-card w-6"></i>
-                        <span>Akun</span>
+                    <a href="<?= site_url('akun') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'akun') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'akun') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-credit-card text-sm"></i>
+                        </div>
+                        <span class="text-sm">Akun</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= site_url('transaction') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'transaction') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-money-bill-transfer w-6"></i>
-                        <span>Transaksi</span>
+                    <a href="<?= site_url('transaction') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'transaction') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'transaction') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-money-bill-transfer text-sm"></i>
+                        </div>
+                        <span class="text-sm">Transaksi</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= site_url('kategori') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'kategori') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-tags w-6"></i>
-                        <span>Kategori</span>
+                    <a href="<?= site_url('kategori') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'kategori') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'kategori') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-tags text-sm"></i>
+                        </div>
+                        <span class="text-sm">Kategori</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= site_url('anggaran') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'anggaran') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-sliders w-6"></i>
-                        <span>Anggaran</span>
+                    <a href="<?= site_url('anggaran') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'anggaran') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'anggaran') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-sliders text-sm"></i>
+                        </div>
+                        <span class="text-sm">Anggaran</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= site_url('goal') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'goal') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-bullseye w-6"></i>
-                        <span>Tujuan Keuangan</span>
+                    <a href="<?= site_url('goal') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'goal') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'goal') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-bullseye text-sm"></i>
+                        </div>
+                        <span class="text-sm">Tujuan Keuangan</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= site_url('laporan') ?>" class="flex items-center p-3 rounded-lg <?= ($this->uri->segment(1) == 'laporan') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' ?> transition-colors">
-                        <i class="fa-solid fa-chart-pie w-6"></i>
-                        <span>Laporan Keuangan</span>
+                    <a href="<?= site_url('laporan') ?>" class="flex items-center gap-3 px-3 py-2.5 rounded-xl group transition-all duration-200 <?= ($this->uri->segment(1) == 'laporan') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/30' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-slate-800/60 hover:text-gray-900 dark:hover:text-white' ?>">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 <?= ($this->uri->segment(1) == 'laporan') ? 'bg-white/20' : 'bg-gray-100 dark:bg-slate-800 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 text-gray-500 dark:text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400' ?>">
+                            <i class="fa-solid fa-chart-pie text-sm"></i>
+                        </div>
+                        <span class="text-sm">Laporan Keuangan</span>
                     </a>
                 </li>
             </ul>
         </div>
         
-        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+        <div class="p-4 border-t border-gray-200/50 dark:border-gray-700/50">
             <!-- Theme Toggle -->
-            <button id="theme-toggle" type="button" class="flex items-center w-full p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mb-2">
+            <button id="theme-toggle" type="button" class="flex items-center w-full p-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:-translate-y-0.5 transition-all mb-2 font-medium">
                 <i id="theme-toggle-dark-icon" class="fa-solid fa-moon w-6 hidden"></i>
                 <i id="theme-toggle-light-icon" class="fa-solid fa-sun w-6 hidden"></i>
                 <span id="theme-toggle-text" class="ml-1">Ubah Tema</span>
             </button>
             
             <!-- User Profile & Logout -->
-            <div class="flex items-center p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer" onclick="window.location.href='<?= site_url('profil') ?>'">
+            <div class="flex items-center p-3 hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:-translate-y-0.5 rounded-xl transition-all cursor-pointer group" onclick="window.location.href='<?= site_url('profil') ?>'">
                 <?php if(!empty($current_user['foto_profil'])): ?>
-                    <img src="<?= base_url('uploads/profil/' . $current_user['foto_profil']) ?>" alt="Foto" class="w-10 h-10 rounded-full object-cover border border-gray-200 dark:border-gray-600">
+                    <img src="<?= base_url('uploads/profil/' . $current_user['foto_profil']) ?>" alt="Foto" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-500/30">
                 <?php else: ?>
-                    <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-gray-600 dark:text-gray-300 uppercase font-bold border border-gray-200 dark:border-gray-600">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center text-gray-700 dark:text-gray-200 uppercase font-bold ring-2 ring-gray-200 dark:ring-gray-600">
                         <?= substr(htmlspecialchars($current_user['name']), 0, 1) ?>
                     </div>
                 <?php endif; ?>
                 <div class="ml-3 flex-1 overflow-hidden">
-                    <p class="text-sm font-medium truncate group-hover:text-primary-600"><?= htmlspecialchars($current_user['name']) ?></p>
+                    <p class="text-sm font-semibold truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"><?= htmlspecialchars($current_user['name']) ?></p>
                 </div>
-                <a href="<?= site_url('auth/logout') ?>" class="text-gray-500 hover:text-red-500 transition-colors p-2" title="Logout" onclick="event.stopPropagation();">
+                <a href="<?= site_url('auth/logout') ?>" class="text-gray-400 hover:text-rose-500 transition-colors p-2 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-lg" title="Logout" onclick="event.stopPropagation();">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </a>
             </div>
@@ -161,7 +191,7 @@
     </aside>
 
     <!-- Main Content -->
-    <div class="p-4 lg:ml-64 mt-16 lg:mt-0 transition-all">
+    <div class="p-4 lg:ml-64 mt-16 lg:mt-0 transition-all min-h-screen">
         <div class="max-w-7xl mx-auto">
             <?= $content ?? '' ?>
         </div>

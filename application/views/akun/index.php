@@ -19,22 +19,24 @@ $jenis_presets = ['bank', 'e-wallet', 'tunai', 'tabungan', 'investasi', 'lainnya
 ?>
 
 <!-- Header + Total Saldo -->
-<div class="mb-6">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+<div class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight">Manajemen Akun</h1>
+            <h1 class="text-3xl font-extrabold tracking-tight text-gradient">Manajemen Akun</h1>
             <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Kelola akun, dompet, dan rekening keuangan Anda.</p>
         </div>
-        <button onclick="openModal('create-modal')" class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none transition-colors">
+        <button onclick="openModal('create-modal')" class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent rounded-xl shadow-lg shadow-primary-500/30 text-sm font-medium text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 focus:outline-none transition-all hover:shadow-xl hover:-translate-y-0.5">
             <i class="fa-solid fa-plus mr-2"></i> Tambah Akun
         </button>
     </div>
 
     <!-- Total Saldo Card -->
-    <div class="bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl p-5 text-white shadow-md">
-        <p class="text-primary-100 text-sm font-medium mb-1">Total Saldo Seluruh Akun Aktif</p>
-        <p class="text-3xl font-bold tracking-tight"><?= format_rupiah($total_saldo) ?></p>
-        <p class="text-primary-200 text-xs mt-1">Angka ini identik dengan Total Saldo di Dashboard</p>
+    <div class="bg-gradient-to-br from-primary-500 via-primary-600 to-teal-600 rounded-2xl p-6 text-white shadow-xl shadow-primary-500/25 relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-white/10 blur-3xl"></div>
+        <div class="absolute right-16 bottom-0 w-24 h-24 rounded-full bg-teal-400/20 blur-2xl"></div>
+        <p class="text-primary-100 text-xs font-semibold uppercase tracking-widest mb-2">Total Saldo Seluruh Akun Aktif</p>
+        <p class="text-4xl font-extrabold tracking-tight drop-shadow-sm"><?= format_rupiah($total_saldo) ?></p>
+        <p class="text-primary-200 text-xs mt-2 flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Identik dengan Total Saldo di Dashboard</p>
     </div>
 </div>
 

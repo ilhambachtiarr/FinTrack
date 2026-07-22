@@ -69,63 +69,66 @@
 
 
 <!-- Cards Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
     <!-- Total Saldo -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+    <div class="bg-gradient-to-br from-primary-500 to-primary-700 dark:from-primary-600 dark:to-primary-900 rounded-2xl p-6 shadow-xl shadow-primary-500/20 border border-primary-400/30 relative overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group">
+        <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-white/10 blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Saldo</p>
-                <h3 class="text-2xl font-bold mt-1"><?= format_rupiah($total_saldo) ?></h3>
+                <p class="text-sm font-medium text-primary-50 uppercase tracking-wider mb-1">Total Saldo</p>
+                <h3 class="text-3xl font-extrabold text-white tracking-tight drop-shadow-sm"><?= format_rupiah($total_saldo) ?></h3>
             </div>
-            <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                <i class="fa-solid fa-wallet"></i>
+            <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center shadow-inner">
+                <i class="fa-solid fa-wallet text-xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Pemasukan Bulan Ini -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+    <div class="glass rounded-2xl p-6 shadow-xl shadow-emerald-500/5 border border-white/50 dark:border-slate-700/50 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-emerald-500/10 blur-2xl group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pemasukan Bulan Ini</p>
-                <h3 class="text-2xl font-bold mt-1 text-green-600 dark:text-green-400"><?= format_rupiah($pemasukan_bulan) ?></h3>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Pemasukan Bulan Ini</p>
+                <h3 class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight"><?= format_rupiah($pemasukan_bulan) ?></h3>
             </div>
-            <div class="w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
-                <i class="fa-solid fa-arrow-down"></i>
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/40 dark:to-emerald-800/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-arrow-turn-down text-xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Pengeluaran Bulan Ini -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <div class="flex justify-between items-start">
+    <div class="glass rounded-2xl p-6 shadow-xl shadow-rose-500/5 border border-white/50 dark:border-slate-700/50 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-rose-500/10 blur-2xl group-hover:bg-rose-500/20 transition-colors duration-500"></div>
+        <div class="flex justify-between items-start relative z-10">
             <div>
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pengeluaran Bulan Ini</p>
-                <h3 class="text-2xl font-bold mt-1 text-red-600 dark:text-red-400"><?= format_rupiah($pengeluaran_bulan) ?></h3>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Pengeluaran Bulan Ini</p>
+                <h3 class="text-3xl font-extrabold text-rose-600 dark:text-rose-400 tracking-tight"><?= format_rupiah($pengeluaran_bulan) ?></h3>
             </div>
-            <div class="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center">
-                <i class="fa-solid fa-arrow-up"></i>
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-100 to-rose-200 dark:from-rose-900/40 dark:to-rose-800/40 text-rose-600 dark:text-rose-400 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-arrow-turn-up text-xl"></i>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Charts Grid -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     <!-- Line Chart (Arus Kas) -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 lg:col-span-2">
-        <h3 class="text-base font-semibold mb-4">Arus Kas (30 Hari Terakhir)</h3>
+    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 lg:col-span-2 relative overflow-hidden group">
+        <h3 class="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100 tracking-tight">Arus Kas (30 Hari Terakhir)</h3>
         <div id="cashflow-chart" class="w-full h-[300px]"></div>
     </div>
 
     <!-- Donut Chart (Kategori Pengeluaran) -->
-    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <h3 class="text-base font-semibold mb-4">Pengeluaran per Kategori</h3>
+    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 relative overflow-hidden group">
+        <h3 class="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100 tracking-tight">Pengeluaran per Kategori</h3>
         <?php $kategori_data = json_decode($chart_kategori, true); ?>
         <?php if(empty($kategori_data['series'])): ?>
-            <div class="flex flex-col items-center justify-center h-[300px] text-gray-400">
-                <i class="fa-solid fa-chart-pie text-4xl mb-2"></i>
-                <p class="text-sm">Belum ada pengeluaran</p>
+            <div class="flex flex-col items-center justify-center h-[280px] text-gray-400 bg-gray-50/50 dark:bg-slate-800/30 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">
+                <i class="fa-solid fa-chart-pie text-5xl mb-3 text-gray-300 dark:text-gray-600"></i>
+                <p class="text-sm font-medium">Belum ada data pengeluaran</p>
             </div>
         <?php else: ?>
             <div id="category-chart" class="w-full flex justify-center h-[300px]"></div>
