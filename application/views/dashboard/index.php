@@ -6,25 +6,25 @@
 
 <!-- Financial Health Insight Card -->
 <?php if (isset($health_insight)): ?>
-<div class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white rounded-xl p-5 shadow-md border border-gray-700/60 mb-6">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-700/60 pb-4 mb-4">
+<div class="glass rounded-2xl p-5 shadow-xl border border-white/50 dark:border-slate-700/50 mb-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200/60 dark:border-slate-700/60 pb-4 mb-4">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-primary-600/30 border border-primary-500/40 flex items-center justify-center text-primary-400 text-xl font-bold shrink-0">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 text-white flex items-center justify-center text-xl font-bold shrink-0 shadow-lg shadow-primary-500/30">
                 <i class="fa-solid fa-heart-pulse"></i>
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <h2 class="text-lg font-bold">Kesehatan Keuangan</h2>
+                    <h2 class="text-lg font-bold text-gray-800 dark:text-white">Kesehatan Keuangan</h2>
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold <?= $health_insight['status_badge'] ?>">
                         <?= $health_insight['status_label'] ?>
                     </span>
                 </div>
-                <p class="text-xs text-gray-400 mt-0.5">Analisis arus kas & ketahanan dana darurat Anda secara real-time</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Analisis arus kas & ketahanan dana darurat Anda secara real-time</p>
             </div>
         </div>
         <div class="flex items-center gap-6 self-start md:self-auto">
             <div class="text-left md:text-right">
-                <span class="text-xs text-gray-400 block">Skor Keuangan</span>
+                <span class="text-xs text-gray-500 dark:text-gray-400 block">Skor Keuangan</span>
                 <span class="text-2xl font-black tracking-tight <?= $health_insight['score_color'] ?>"><?= $health_insight['score'] ?><span class="text-sm font-normal text-gray-400">/100</span></span>
             </div>
         </div>
@@ -32,17 +32,17 @@
 
     <!-- Metric Pills Grid -->
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-        <div class="bg-gray-800/80 border border-gray-700/50 rounded-lg p-3">
-            <span class="text-xs text-gray-400 block mb-1"><i class="fa-solid fa-piggy-bank text-emerald-400 mr-1"></i> Savings Rate</span>
-            <span class="text-base font-bold text-gray-100"><?= $health_insight['savings_rate'] ?>%</span>
+        <div class="bg-gray-100/70 dark:bg-slate-800/60 border border-gray-200/60 dark:border-slate-700/50 rounded-xl p-3">
+            <span class="text-xs text-gray-500 dark:text-gray-400 block mb-1"><i class="fa-solid fa-piggy-bank text-emerald-500 mr-1"></i> Savings Rate</span>
+            <span class="text-base font-bold text-gray-800 dark:text-gray-100"><?= $health_insight['savings_rate'] ?>%</span>
         </div>
-        <div class="bg-gray-800/80 border border-gray-700/50 rounded-lg p-3">
-            <span class="text-xs text-gray-400 block mb-1"><i class="fa-solid fa-shield-halved text-blue-400 mr-1"></i> Daya Tahan Kas</span>
-            <span class="text-base font-bold text-gray-100"><?= $health_insight['runway_bulan'] ?> Bulan</span>
+        <div class="bg-gray-100/70 dark:bg-slate-800/60 border border-gray-200/60 dark:border-slate-700/50 rounded-xl p-3">
+            <span class="text-xs text-gray-500 dark:text-gray-400 block mb-1"><i class="fa-solid fa-shield-halved text-blue-500 mr-1"></i> Daya Tahan Kas</span>
+            <span class="text-base font-bold text-gray-800 dark:text-gray-100"><?= $health_insight['runway_bulan'] ?> Bulan</span>
         </div>
-        <div class="bg-gray-800/80 border border-gray-700/50 rounded-lg p-3 col-span-2 md:col-span-1">
-            <span class="text-xs text-gray-400 block mb-1"><i class="fa-solid fa-scale-balanced text-amber-400 mr-1"></i> Arus Kas</span>
-            <span class="text-base font-bold <?= $pemasukan_bulan >= $pengeluaran_bulan ? 'text-emerald-400' : 'text-rose-400' ?>">
+        <div class="bg-gray-100/70 dark:bg-slate-800/60 border border-gray-200/60 dark:border-slate-700/50 rounded-xl p-3 col-span-2 md:col-span-1">
+            <span class="text-xs text-gray-500 dark:text-gray-400 block mb-1"><i class="fa-solid fa-scale-balanced text-amber-500 mr-1"></i> Arus Kas</span>
+            <span class="text-base font-bold <?= $pemasukan_bulan >= $pengeluaran_bulan ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400' ?>">
                 <?= $pemasukan_bulan >= $pengeluaran_bulan ? 'Surplus' : 'Defisit' ?>
             </span>
         </div>
@@ -50,13 +50,13 @@
 
     <!-- Smart Insights List -->
     <?php if (!empty($health_insight['insights'])): ?>
-        <div class="space-y-2 pt-2 border-t border-gray-700/40">
+        <div class="space-y-2 pt-2 border-t border-gray-200/60 dark:border-slate-700/40">
             <?php foreach ($health_insight['insights'] as $item): ?>
-                <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                <div class="flex items-start gap-2.5 text-xs text-gray-600 dark:text-gray-300">
                     <i class="fa-solid <?= $item['icon'] ?> <?= $item['color'] ?> text-sm mt-0.5 shrink-0"></i>
                     <span>
                         <?php 
-                            $formatted_text = preg_replace('/\*\*(.*?)\*\*/', '<strong class="text-white font-semibold">$1</strong>', $item['text']);
+                            $formatted_text = preg_replace('/\*\*(.*?)\*\*/', '<strong class="text-gray-900 dark:text-white font-semibold">$1</strong>', $item['text']);
                             echo $formatted_text;
                         ?>
                     </span>

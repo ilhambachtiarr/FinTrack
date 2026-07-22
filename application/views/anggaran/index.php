@@ -97,7 +97,9 @@
                         <button onclick="editAnggaran(<?= $item['kategori_id'] ?>, <?= $item['nominal_batas'] ?>)" class="text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 p-1.5 transition-colors" title="Edit Anggaran">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <a href="<?= site_url('anggaran/delete/' . $item['id']) ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus anggaran kategori ini?')" class="text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 p-1.5 transition-colors" title="Hapus Anggaran">
+                        <a href="<?= site_url('anggaran/delete/' . $item['id']) ?>" 
+                           onclick="swalHref(event, this.href, 'Hapus Anggaran?', 'Anggaran kategori <strong><?= htmlspecialchars($item['nama_kategori']) ?></strong> akan dihapus permanen.', 'Ya, Hapus', 'warning')" 
+                           class="text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 p-1.5 transition-colors" title="Hapus Anggaran">
                             <i class="fa-solid fa-trash"></i>
                         </a>
                     </div>

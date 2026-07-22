@@ -66,8 +66,8 @@
 </div>
 
 <!-- 3 Kartu Summary -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 lg:col-span-2 group relative overflow-hidden">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="glass rounded-2xl p-6 shadow-xl border border-white/50 dark:border-slate-700/50 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden">
         <div class="absolute -right-4 -bottom-4 w-20 h-20 rounded-full bg-emerald-500/10 blur-2xl"></div>
         <div class="flex justify-between items-start relative z-10">
             <div>
