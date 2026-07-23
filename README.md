@@ -63,7 +63,7 @@ Catat pemasukan & pengeluaran, atur anggaran, dan capai tujuan keuangan Anda den
 
 | Dashboard | Akun | Transaksi | Kategori | Anggaran | Laporan |
 |:---------:|:---------:|:--------:|:--------:|:--------:|:--------:|
-| ![Dashboard](screenshots/dashboard.png) | ![Transaksi](screenshots/akun.png) | ![Transaksi](screenshots/transaksi.png) | ![Kategori](screenshots/kategori.png) | ![Anggaran](screenshots/anggaran.png) | ![Laporan](screenshots/laporan.png) |
+| ![Dashboard](screenshots/dashboard.jpeg) | ![Transaksi](screenshots/akun.jpeg) | ![Transaksi](screenshots/transaksi.jpeg) | ![Kategori](screenshots/kategori.jpeg) | ![Anggaran](screenshots/anggaran.jpeg) | ![Laporan](screenshots/laporan.jpeg) |
 
 ---
 
